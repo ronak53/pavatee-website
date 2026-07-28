@@ -367,6 +367,11 @@ a { color: var(--brand-dark); }
   font-size: 0.85rem;
 }
 
+.impact-tiles--two {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 600px;
+}
+
 @media (max-width: 640px) {
   .steps,
   .impact-tiles {
