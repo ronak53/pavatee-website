@@ -247,16 +247,18 @@ a { color: var(--brand-dark); }
   font-size: 0.95rem;
 }
 
-/* How it works steps */
+/* How it works steps / impact tiles (same card treatment) */
 
-.steps {
+.steps,
+.impact-tiles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
-  margin-top: 8px;
+  margin-top: 24px;
 }
 
-.step {
+.step,
+.impact-tile {
   position: relative;
   background: var(--paper);
   border: 1px solid var(--border);
@@ -293,7 +295,8 @@ a { color: var(--brand-dark); }
 }
 
 @media (max-width: 640px) {
-  .steps {
+  .steps,
+  .impact-tiles {
     grid-template-columns: 1fr;
     gap: 28px;
   }
