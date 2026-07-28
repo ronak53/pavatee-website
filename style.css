@@ -202,6 +202,79 @@ a { color: var(--brand-dark); }
 
 .section p:last-child { margin-bottom: 0; }
 
+/* Eco section (dark, like the hero, for visual weight) */
+
+.section.eco {
+  background: linear-gradient(180deg, var(--brand-dark), var(--brand));
+}
+
+.section.eco h2 {
+  color: #ffffff;
+}
+
+.section.eco p {
+  color: var(--brand-light);
+}
+
+.eco-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--brand-light);
+  background: rgba(255, 255, 255, 0.14);
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin: 8px 0 32px;
+}
+
+.stat-value {
+  font-size: clamp(2.4rem, 6vw, 3rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  color: var(--brand-light);
+  font-size: 0.92rem;
+  max-width: 320px;
+}
+
+.section.eco .impact-tile {
+  background: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.section.eco .impact-tile h3 {
+  color: #1c2430;
+}
+
+.section.eco .impact-tile p {
+  color: #44505f;
+}
+
+.section.eco .step-icon {
+  color: var(--brand);
+}
+
+@media (max-width: 640px) {
+  .stat-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .flow-diagram {
   margin-top: 28px;
   background: var(--paper);
