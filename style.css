@@ -195,7 +195,8 @@ a { color: var(--brand-dark); }
 }
 
 .section.problem,
-.section.how {
+.section.how,
+.section.why {
   background: var(--paper-alt);
 }
 
@@ -217,6 +218,10 @@ a { color: var(--brand-dark); }
 
 .layer-diagram {
   margin-top: 28px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
 }
 
 .layer-diagram svg {
