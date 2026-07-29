@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your digital receipt — Pavatee</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+<link rel="stylesheet" href="../style.css">
+<style>
+  .claim-main {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 56px 20px;
+  }
+  .claim-status { color: var(--ink-soft); margin-bottom: 4px; }
+  .pdf-frame {
+    width: 100%;
+    max-width: 480px;
+    height: 65vh;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin: 20px 0;
+    background: #fff;
+  }
+  .error-box {
+    background: #fdecea;
+    color: #7a271a;
+    padding: 16px 20px;
+    border-radius: 8px;
+    max-width: 420px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .error-box { background: #3a1f1c; color: #f3b7ab; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="https://pavatee.com">
+      <img class="brand-mark" src="../assets/logo.svg" alt="" width="32" height="32">
+      <span class="logo">Pavatee</span>
+    </a>
+  </div>
+</header>
+
+<main class="claim-main wrap">
+  <div id="state-loading">
+    <p class="claim-status">Getting your receipt…</p>
+  </div>
+
+  <div id="state-error" style="display:none">
+    <div class="error-box">
+      <p id="error-message">This receipt link isn't valid or has expired.</p>
+    </div>
+  </div>
+
+  <div id="state-ready" style="display:none">
+    <h1>Your digital receipt</h1>
+    <p class="claim-status">Nothing printed on paper — here's your copy.</p>
+    <embed id="pdf-embed" class="pdf-frame" type="application/pdf">
+    <a id="download-link" class="btn btn-primary" download="receipt.pdf">Download PDF</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span class="footer-brand">
+      <img class="brand-mark" src="../assets/logo.svg" alt="" width="20" height="20">
+      Pavatee
+    </span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Anon key: safe to expose client-side by design - Supabase access
+  // control here comes from RLS/RPC scoping, not from hiding this key.
+  // See supabase/schema.sql in the receipt-device repo.
+  var SUPABASE_URL = "https://lbiithrozbbrtkavpxdj.supabase.co";
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxiaWl0aHJvemJicnRrYXZweGRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUzMjg1OTQsImV4cCI6MjEwMDkwNDU5NH0.99aJRcwHPVrb5fuLQ9ZtanZ0l1iXP-jHmV82ajRCnXs";
+
+  var params = new URLSearchParams(window.location.search);
+  var ticket = params.get("ticket");
+
+  function el(id) { return document.getElementById(id); }
+  function showState(name) {
+    ["loading", "error", "ready"].forEach(function (s) {
+      el("state-" + s).style.display = s === name ? "" : "none";
+    });
+  }
+  function showError(message) {
+    el("error-message").textContent = message;
+    showState("error");
+  }
+  function supabaseHeaders() {
+    return { "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + SUPABASE_ANON_KEY };
+  }
+
+  async function claimAndFetch() {
+    if (!ticket) {
+      showError("No receipt ticket was provided.");
+      return;
+    }
+
+    try {
+      await fetch(SUPABASE_URL + "/rest/v1/rpc/claim_ticket", {
+        method: "POST",
+        headers: Object.assign({ "Content-Type": "application/json" }, supabaseHeaders()),
+        body: JSON.stringify({ p_ticket: ticket }),
+      });
+    } catch (e) {
+      // Couldn't reach the server to claim it - still try to fetch below,
+      // in case an earlier attempt (e.g. a page refresh) already claimed it.
+    }
+
+    for (var attempt = 0; attempt < 6; attempt++) {
+      try {
+        var res = await fetch(
+          SUPABASE_URL + "/rest/v1/claim_view?ticket=eq." + encodeURIComponent(ticket),
+          { headers: supabaseHeaders() }
+        );
+        if (res.ok) {
+          var rows = await res.json();
+          if (rows.length && rows[0].pdf_path) {
+            await showReceipt(rows[0].pdf_path);
+            return;
+          }
+        }
+      } catch (e) {
+        // network hiccup - fall through to retry
+      }
+      await new Promise(function (resolve) { setTimeout(resolve, 1500); });
+    }
+
+    showError("This receipt link isn't valid or has expired.");
+  }
+
+  async function showReceipt(pdfPath) {
+    try {
+      var res = await fetch(
+        SUPABASE_URL + "/storage/v1/object/receipts/" + pdfPath,
+        { headers: supabaseHeaders() }
+      );
+      if (!res.ok) {
+        showError("Your receipt couldn't be loaded right now — please try tapping again.");
+        return;
+      }
+      var blob = await res.blob();
+      var blobUrl = URL.createObjectURL(blob);
+      el("pdf-embed").src = blobUrl;
+      el("download-link").href = blobUrl;
+      showState("ready");
+    } catch (e) {
+      showError("Your receipt couldn't be loaded right now — please try tapping again.");
+    }
+  }
+
+  claimAndFetch();
+})();
+</script>
+
+</body>
+</html>
