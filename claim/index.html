@@ -107,10 +107,10 @@
     }
 
     try {
-      await fetch(SUPABASE_URL + "/rest/v1/rpc/claim_ticket", {
+      await fetch(SUPABASE_URL + "/rest/v1/rpc/f1", {
         method: "POST",
         headers: Object.assign({ "Content-Type": "application/json" }, supabaseHeaders()),
-        body: JSON.stringify({ p_ticket: ticket }),
+        body: JSON.stringify({ a: ticket }),
       });
     } catch (e) {
       // Couldn't reach the server to claim it - still try to fetch below,
@@ -120,13 +120,13 @@
     for (var attempt = 0; attempt < 6; attempt++) {
       try {
         var res = await fetch(
-          SUPABASE_URL + "/rest/v1/claim_view?ticket=eq." + encodeURIComponent(ticket),
+          SUPABASE_URL + "/rest/v1/v1?k=eq." + encodeURIComponent(ticket),
           { headers: supabaseHeaders() }
         );
         if (res.ok) {
           var rows = await res.json();
-          if (rows.length && rows[0].pdf_path) {
-            await showReceipt(rows[0].pdf_path);
+          if (rows.length && rows[0].p) {
+            await showReceipt(rows[0].p);
             return;
           }
         }
@@ -142,7 +142,7 @@
   async function showReceipt(pdfPath) {
     try {
       var res = await fetch(
-        SUPABASE_URL + "/storage/v1/object/receipts/" + pdfPath,
+        SUPABASE_URL + "/storage/v1/object/d1/" + pdfPath,
         { headers: supabaseHeaders() }
       );
       if (!res.ok) {
