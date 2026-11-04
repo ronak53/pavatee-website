@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <rect width="100" height="100" rx="24" fill="#0f6656"/>
-  <text x="37" y="68" font-size="52" font-family="Georgia, 'Times New Roman', serif" font-weight="700" fill="#eaf6f1">P</text>
-  <path d="M 66 26 A 14 14 0 0 1 78 40" fill="none" stroke="#eaf6f1" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
-  <path d="M 66 18 A 22 22 0 0 1 86 40" fill="none" stroke="#eaf6f1" stroke-width="4" stroke-linecap="round" opacity="0.55"/>
+  <!-- "P" drawn as a path (not text) so it stays exactly centered on every device; spans x 32-68, y 28-72 -->
+  <path fill="#eaf6f1" fill-rule="evenodd" d="M32 28 H52 A16 16 0 0 1 52 60 H43 V72 H32 Z M43 38 V50 H51 A6 6 0 0 0 51 38 Z"/>
+  <path d="M 70 26 A 14 14 0 0 1 82 40" fill="none" stroke="#eaf6f1" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+  <path d="M 70 18 A 22 22 0 0 1 90 40" fill="none" stroke="#eaf6f1" stroke-width="4" stroke-linecap="round" opacity="0.55"/>
 </svg>
