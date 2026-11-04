@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pavatee — Paperless receipts for any POS</title>
-<meta name="description" content="Pavatee is an inline device that sits between any POS and its receipt printer, letting customers tap to go paperless — no software integration required.">
+<title>Pavatee — Digital receipts for any POS</title>
+<meta name="description" content="Pavatee lets customers tap their phone for a digital receipt at any store, on any point-of-sale system. No app. No POS changes.">
 <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -21,41 +21,32 @@
 </header>
 
 <section class="hero" id="top">
-  <div class="wrap hero-grid">
+  <div class="wrap wrap--wide hero-grid">
     <div class="hero-copy">
-      <h1>Paperless receipts for any POS.</h1>
-      <p class="hero-sub">
-        Pavatee installs inline between your point-of-sale system and your receipt printer.
-        Customers tap their phone or an NFC card to get a digital receipt instead of paper —
-        no software integration, no POS reconfiguration, nothing to install on the till.
-      </p>
-      <a class="btn btn-primary" href="#pilot">Get Pavatee for your store</a>
+      <h1>Digital receipts for any POS.</h1>
+      <p class="hero-sub">Tap your phone. Get your receipt. No app, no POS changes.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#pilot">Bring it to my store</a>
+        <a class="btn btn-ghost" href="#watch">Watch how it works</a>
+      </div>
     </div>
     <div class="hero-visual" aria-hidden="true">
       <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
         <circle cx="210" cy="170" r="150" fill="#ffffff" opacity="0.06"/>
-
-        <!-- phone tapping -->
         <g transform="rotate(-16 90 100)">
           <rect x="45" y="30" width="70" height="128" rx="14" fill="#ffffff" opacity="0.12" stroke="#eaf6f1" stroke-width="2"/>
           <circle cx="80" cy="46" r="2.5" fill="#eaf6f1" opacity="0.8"/>
           <rect x="62" y="140" width="36" height="4" rx="2" fill="#eaf6f1" opacity="0.6"/>
         </g>
-
-        <!-- nfc waves -->
         <g class="nfc-wave" stroke="#eaf6f1" fill="none" stroke-linecap="round">
           <path d="M 150 130 A 20 20 0 0 1 178 150" stroke-width="4" opacity="0.9"/>
           <path d="M 150 115 A 36 36 0 0 1 196 152" stroke-width="4" opacity="0.55"/>
           <path d="M 150 100 A 52 52 0 0 1 214 154" stroke-width="4" opacity="0.3"/>
         </g>
-
-        <!-- device -->
         <rect x="130" y="188" width="150" height="66" rx="14" fill="#ffffff" opacity="0.14" stroke="#eaf6f1" stroke-width="2"/>
         <circle cx="255" cy="208" r="5" fill="#ffd166"/>
         <rect x="150" y="222" width="80" height="6" rx="3" fill="#eaf6f1" opacity="0.5"/>
         <rect x="150" y="236" width="50" height="6" rx="3" fill="#eaf6f1" opacity="0.3"/>
-
-        <!-- receipt sliding out -->
         <g transform="translate(292 172)">
           <path d="M0 0 H62 V70 L54 64 L46 70 L38 64 L30 70 L22 64 L14 70 L6 64 L0 70 Z" fill="#eaf6f1" opacity="0.92"/>
           <rect x="10" y="12" width="40" height="4" rx="2" fill="#0f6656" opacity="0.5"/>
@@ -69,234 +60,162 @@
   </div>
 </section>
 
-<section class="section problem">
-  <div class="wrap">
-    <h2>Paper receipts are the default nobody wants</h2>
-    <p>
-      71% of consumers say they prefer digital receipts, yet actual adoption sits at only
-      about 27% across sectors. The gap exists because the only real path to digital receipts
-      today requires integrating with the POS software itself — something independent retailers
-      on older or simpler systems can't do, or can't justify.
-    </p>
-    <p>
-      Thermal receipt paper is also a real ongoing cost, in a market growing roughly 9%
-      annually, and commonly contains BPA. And even where digital receipts are offered today,
-      customers are typically asked to type their real email or phone number into the POS,
-      handing their contact information straight into the retailer's marketing system.
-    </p>
-  </div>
-</section>
-
-<section class="section solution">
-  <div class="wrap">
-    <h2>One device, installed inline — zero POS changes</h2>
-    <p>
-      Pavatee installs inline between a store's POS and its receipt printer — network, USB,
-      or serial, whichever the store already has — with no POS software changes required.
-      It holds each receipt until it's actually needed: the customer taps their phone or an
-      NFC card to go paperless, the cashier can force an immediate print, and if neither
-      happens before the next sale, that receipt prints then to make room — so nothing is
-      ever lost, but nothing prints on paper before it has to.
-    </p>
-    <p>
-      Because it works at the printer level instead of through POS software, it
-      works with any POS — and because it never asks the customer for contact information,
-      the retailer never captures an email or phone number just to offer a digital receipt.
-      Installation requires no reconfiguration of the POS or printer.
-    </p>
-
-    <div class="flow-diagram" aria-hidden="true">
-      <svg viewBox="0 0 640 130" xmlns="http://www.w3.org/2000/svg">
-        <rect class="diagram-box" x="10" y="35" width="140" height="60" rx="12" fill="none" stroke-width="2"/>
-        <text class="diagram-label" x="80" y="70" text-anchor="middle" font-size="18" font-weight="600">POS</text>
-
-        <path class="diagram-arrow" d="M156 65 H244" stroke-width="2" marker-end="url(#arrow-neutral)"/>
-
-        <rect x="250" y="20" width="140" height="90" rx="14" fill="#0f6656"/>
-        <text x="320" y="60" text-anchor="middle" font-size="17" font-weight="700" fill="#eaf6f1">Pavatee</text>
-        <text x="320" y="82" text-anchor="middle" font-size="11" fill="#cfe9e0">Receipt capture</text>
-
-        <path class="diagram-arrow" d="M396 65 H484" stroke-width="2" marker-end="url(#arrow-neutral)"/>
-
-        <rect class="diagram-box" x="490" y="35" width="140" height="60" rx="12" fill="none" stroke-width="2"/>
-        <text class="diagram-label" x="560" y="70" text-anchor="middle" font-size="18" font-weight="600">Printer</text>
-
-        <defs>
-          <marker id="arrow-neutral" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path class="diagram-arrowhead" d="M0 0 L10 5 L0 10 z"/>
-          </marker>
-        </defs>
+<!-- Explainer: animated loop by default; swaps to a real video if assets/demo.mp4 is added -->
+<section class="section watch" id="watch">
+  <div class="wrap wrap--wide">
+    <h2>See it in 30 seconds</h2>
+    <div class="explainer-wrap" id="demo-video">
+      <svg class="explainer" viewBox="0 0 640 330" role="img" aria-label="A sale rings up, Pavatee holds the receipt, the customer taps their phone, and the receipt opens on the phone with nothing printed.">
+        <!-- POS -->
+        <g>
+          <rect x="24" y="118" width="120" height="98" rx="12" class="ex-body"/>
+          <rect x="40" y="134" width="88" height="42" rx="6" class="ex-screen"/>
+          <text x="84" y="163" text-anchor="middle" class="ex-money">$12.40</text>
+          <text x="84" y="240" text-anchor="middle" class="ex-label">Your POS</text>
+        </g>
+        <!-- links -->
+        <path class="ex-link" d="M148 167 H256"/>
+        <path class="ex-link" d="M384 167 H492"/>
+        <!-- Pavatee -->
+        <g>
+          <rect x="260" y="130" width="124" height="86" rx="14" class="ex-device"/>
+          <text x="322" y="180" text-anchor="middle" class="ex-brand">Pavatee</text>
+          <circle cx="366" cy="148" r="6" class="ex-led"/>
+        </g>
+        <text x="322" y="240" text-anchor="middle" class="ex-label">holds the receipt</text>
+        <!-- Printer -->
+        <g>
+          <rect x="496" y="126" width="120" height="90" rx="12" class="ex-body"/>
+          <rect x="516" y="144" width="80" height="8" rx="4" class="ex-slot"/>
+          <text x="556" y="240" text-anchor="middle" class="ex-label">Your printer</text>
+        </g>
+        <!-- receipt data travelling POS -> Pavatee -->
+        <rect class="ex-packet" x="150" y="152" width="20" height="26" rx="3"/>
+        <!-- phone -->
+        <g transform="translate(292 4)">
+          <g class="ex-phone">
+            <rect x="0" y="0" width="56" height="104" rx="11" class="ex-phone-body"/>
+            <rect x="5" y="10" width="46" height="82" rx="5" class="ex-phone-screen"/>
+            <g class="ex-phone-receipt">
+              <rect x="12" y="20" width="32" height="4" rx="2" class="ex-line"/>
+              <rect x="12" y="30" width="24" height="4" rx="2" class="ex-line"/>
+              <rect x="12" y="40" width="28" height="4" rx="2" class="ex-line"/>
+              <rect x="12" y="50" width="20" height="4" rx="2" class="ex-line"/>
+              <circle cx="28" cy="72" r="10" class="ex-check-bg"/>
+              <path d="M23 72 L27 76 L34 67" class="ex-check"/>
+            </g>
+          </g>
+        </g>
+        <!-- tap waves -->
+        <g class="ex-waves">
+          <path d="M 300 122 A 16 16 0 0 1 356 122"/>
+          <path d="M 290 120 A 28 28 0 0 1 366 120"/>
+        </g>
+        <!-- captions -->
+        <text x="320" y="296" text-anchor="middle" class="ex-caption ex-c1">1. The sale rings up as usual</text>
+        <text x="320" y="296" text-anchor="middle" class="ex-caption ex-c2">2. Pavatee holds the receipt</text>
+        <text x="320" y="296" text-anchor="middle" class="ex-caption ex-c3">3. The customer taps their phone</text>
+        <text x="320" y="296" text-anchor="middle" class="ex-caption ex-c4">4. Receipt on their phone. Nothing printed.</text>
       </svg>
     </div>
   </div>
 </section>
 
-<section class="section how">
-  <div class="wrap">
+<section class="section how" id="how">
+  <div class="wrap wrap--wide">
     <h2>How it works</h2>
     <div class="steps">
       <div class="step">
         <div class="step-icon" aria-hidden="true">
-          <svg viewBox="0 0 48 48"><rect x="15" y="5" width="16" height="28" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="20" y="29" width="6" height="2.5" rx="1.25" fill="currentColor"/><path d="M33 16 A 11 11 0 0 1 41 27" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity="0.85"/><path d="M33 10 A 18 18 0 0 1 48 27" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/></svg>
+          <svg viewBox="0 0 48 48"><rect x="8" y="12" width="32" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13" y="17" width="22" height="9" rx="2" fill="currentColor" opacity="0.5"/><rect x="14" y="40" width="20" height="3" rx="1.5" fill="currentColor"/></svg>
         </div>
         <span class="step-num">1</span>
-        <h3>Tap</h3>
-        <p>The customer taps their phone or an NFC card on the device. Their phone opens
-        their receipt — the same layout and logo as what would have printed — right on
-        their screen, and nothing prints on paper.</p>
+        <h3>Sale as usual</h3>
+        <p>Your cashier rings it up. Nothing changes at the till.</p>
       </div>
       <div class="step">
         <div class="step-icon" aria-hidden="true">
-          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="9" fill="currentColor"/></svg>
+          <svg viewBox="0 0 48 48"><rect x="15" y="5" width="16" height="28" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="20" y="29" width="6" height="2.5" rx="1.25" fill="currentColor"/><path d="M33 16 A 11 11 0 0 1 41 27" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity="0.85"/><path d="M33 10 A 18 18 0 0 1 48 27" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/></svg>
         </div>
         <span class="step-num">2</span>
-        <h3>Button</h3>
-        <p>The cashier can press the button on the device at any time to print the receipt
-        immediately, exactly as it works today.</p>
+        <h3>Customer taps</h3>
+        <p>Phone on the Pavatee. Android or iPhone. No app, no sign-in.</p>
       </div>
       <div class="step">
         <div class="step-icon" aria-hidden="true">
-          <svg viewBox="0 0 48 48"><rect x="9" y="18" width="26" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13" y="10" width="18" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 33 L15 41 L19 36 L23 41 L27 36 L31 41 L33 33" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M35 9 A9 9 0 1 1 28 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M28 6 L28 12 L34 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 48 48"><path d="M12 6 H36 V42 L32 39 L28 42 L24 39 L20 42 L16 39 L12 42 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M18 22 L22 26 L30 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <span class="step-num">3</span>
-        <h3>Never lost</h3>
-        <p>No timer, no default print. If neither of the above happens, the next sale simply
-        takes its place — the still-pending receipt prints then, so it's never lost, but
-        nothing prints before it's actually needed.</p>
+        <h3>Receipt on their phone</h3>
+        <p>Same logo, same layout. Nothing prints on paper.</p>
+      </div>
+    </div>
+    <p class="how-note">Customer wants paper? The cashier presses one button.</p>
+  </div>
+</section>
+
+<section class="section why">
+  <div class="wrap wrap--wide">
+    <h2>Why stores choose Pavatee</h2>
+    <div class="impact-tiles">
+      <div class="impact-tile">
+        <div class="step-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><rect x="6" y="14" width="14" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="28" y="14" width="14" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 24 H28" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Works with any POS</h3>
+        <p>Keep the system you have. No software to integrate.</p>
+      </div>
+      <div class="impact-tile">
+        <div class="step-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><path d="M8 24 H18 M30 24 H40" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="18" y="16" width="12" height="16" rx="3" fill="currentColor" opacity="0.85"/></svg>
+        </div>
+        <h3>Installs in minutes</h3>
+        <p>It sits between your POS and printer. One cable to move.</p>
+      </div>
+      <div class="impact-tile">
+        <div class="step-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><rect x="12" y="21" width="24" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M17 21 V15 a7 7 0 0 1 14 0 V21" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="30" r="2.6" fill="currentColor"/></svg>
+        </div>
+        <h3>Private by design</h3>
+        <p>No email or phone number asked. Receipts are deleted after 30 days.</p>
       </div>
     </div>
   </div>
 </section>
 
 <section class="section eco">
-  <div class="wrap">
-    <span class="eco-eyebrow" aria-hidden="true">
-      <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 3 C7 3 3.5 8 5 12 C2 13 1.5 18 5 19.5 C4 22.5 7 25 10 23.5 C10 25.5 11 27 12 28 C13 27 14 25.5 14 23.5 C17 25 20 22.5 19 19.5 C22.5 18 22 13 19 12 C20.5 8 17 3 12 3 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-      Eco-friendly by design
-    </span>
-    <h2>No paper until it's actually needed</h2>
-    <p>
-      Most digital-receipt approaches still print by default after a short delay. Pavatee
-      doesn't — a held receipt stays paperless until the customer taps, the cashier presses
-      the button, or the next sale genuinely needs the printer back.
-    </p>
-
-    <div class="stat-row">
-      <div class="stat-tile">
-        <div class="stat-value">71%</div>
-        <div class="stat-label">of consumers say they prefer a digital receipt over paper</div>
-      </div>
-      <div class="stat-tile">
-        <div class="stat-value">~9%</div>
-        <div class="stat-label">yearly growth in the thermal receipt paper market Pavatee helps shrink</div>
-      </div>
-    </div>
-
+  <div class="wrap wrap--wide">
+    <h2>Print less. Waste less.</h2>
     <div class="impact-tiles">
       <div class="impact-tile">
         <div class="step-icon" aria-hidden="true">
           <svg viewBox="0 0 48 48"><path d="M10 10 a6 6 0 0 1 12 0 V34" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 34 L12 41 L15 37 L18 41 L21 37 L24 41 L26 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="20" y="10" width="10" height="4" rx="1" fill="currentColor" opacity="0.5"/><rect x="18" y="17" width="14" height="4" rx="1" fill="currentColor" opacity="0.5"/><rect x="20" y="24" width="10" height="4" rx="1" fill="currentColor" opacity="0.5"/></svg>
         </div>
         <h3>Less paper bought</h3>
-        <p>A receipt that never needs to print is a receipt your store never buys the paper
-        for, on top of whatever share of customers go fully digital.</p>
+        <p>A receipt that never prints is paper you never buy.</p>
       </div>
       <div class="impact-tile">
         <div class="step-icon" aria-hidden="true">
           <svg viewBox="0 0 48 48"><path d="M24 6 C15 6 10 14 12 20 C8 21 7 27 12 29 C10 33 14 37 19 35 C19 39 21 42 24 44 C27 42 29 39 29 35 C34 37 38 33 36 29 C41 27 40 21 36 20 C38 14 33 6 24 6 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M24 44 V32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
-        <h3>Fewer trees cut down</h3>
-        <p>Thermal receipt paper is made from wood pulp like any other paper. Printing less
-        of it means less demand on the trees that supply it.</p>
+        <h3>Fewer trees cut</h3>
+        <p>Receipt paper is wood pulp. Less printing, less demand.</p>
       </div>
       <div class="impact-tile">
         <div class="step-icon" aria-hidden="true">
-          <svg viewBox="0 0 48 48"><path d="M19 6 H29 V16 L36 34 A5 5 0 0 1 31 41 H17 A5 5 0 0 1 12 34 L19 16 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M15 30 H33" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="19" fill="none" stroke="currentColor" stroke-width="2" opacity="0.9"/><path d="M13 13 L35 35" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 13 L35 35" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M19 12 H29 V16 L35 32 A4 4 0 0 1 31 37 H17 A4 4 0 0 1 13 32 L19 16 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" opacity="0.6"/></svg>
         </div>
-        <h3>No BPA in your customers' hands</h3>
-        <p>Thermal paper commonly contains BPA. Every receipt that goes digital is one less
-        BPA-coated slip a customer carries home.</p>
+        <h3>Fewer BPA slips</h3>
+        <p>Thermal paper commonly contains BPA. Digital has none.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="section trust">
-  <div class="wrap">
-    <h2>Your customers' data stays private — by design, not by policy</h2>
-    <p>
-      Going paperless shouldn't mean handing a customer's email or phone number to the
-      store just to skip a piece of paper. Pavatee never asks for either at the till.
-    </p>
-    <div class="impact-tiles impact-tiles--two">
-      <div class="impact-tile">
-        <div class="step-icon" aria-hidden="true">
-          <svg viewBox="0 0 48 48"><rect x="12" y="21" width="24" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M17 21 V15 a7 7 0 0 1 14 0 V21" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="28" r="2.6" fill="currentColor"/><path d="M24 30.6 V34" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <h3>The store never gets it</h3>
-        <p>Customers never hand their email or phone number to the store, and Pavatee never
-        passes it along either — nothing for the retailer to collect, store, or use for
-        marketing.</p>
-      </div>
-      <div class="impact-tile">
-        <div class="step-icon" aria-hidden="true">
-          <svg viewBox="0 0 48 48"><path d="M24 5 L38 11 V22 C38 32 32 38 24 41 C16 38 10 32 10 22 V11 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="18" y="21" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 21 V17 a3 3 0 0 1 6 0 V21" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-        </div>
-        <h3>Stored privately, deleted automatically</h3>
-        <p>Viewing your receipt on your phone means it's held privately for 30 days, then
-        automatically deleted — and it's never linked to your name, email, or phone number.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section why">
-  <div class="wrap">
-    <h2>Works with any POS — because it doesn't touch your POS</h2>
-    <p>
-      Every existing competitor — Slip, refive, ReceiptHero, TapReceipt, Receiptless — integrates
-      at the POS software layer, which means each one depends on POS vendor cooperation and
-      can't serve retailers on older or simpler systems. Pavatee works one layer below, at the
-      printer itself, so it works with any POS regardless of brand or age.
-    </p>
-
-    <div class="layer-diagram" aria-hidden="true">
-      <svg viewBox="0 0 560 170" xmlns="http://www.w3.org/2000/svg">
-        <rect class="diagram-box-fill" x="0" y="10" width="560" height="56" rx="10" stroke-width="1.5"/>
-        <text class="diagram-label" x="20" y="34" font-size="15" font-weight="700">POS software layer</text>
-        <text class="diagram-sublabel" x="20" y="53" font-size="12">Where every other provider integrates — needs vendor cooperation</text>
-
-        <path class="diagram-arrow" d="M280 66 V96" stroke-width="2" marker-end="url(#arrow-down)"/>
-
-        <rect x="0" y="104" width="560" height="56" rx="10" fill="#0f6656"/>
-        <text x="20" y="128" font-size="15" font-weight="700" fill="#eaf6f1">Printer layer</text>
-        <text x="20" y="147" font-size="12" fill="#cfe9e0">Where Pavatee works — any POS, any age, no integration</text>
-
-        <defs>
-          <marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="7" markerHeight="7" orient="auto">
-            <path class="diagram-arrowhead" d="M0 0 L5 10 L10 0 z"/>
-          </marker>
-        </defs>
-      </svg>
-    </div>
-
-    <p class="pilot-note">
-      Now piloting with independent retailers in Halifax and Bedford, Nova Scotia — general
-      retail, cafes, and specialty shops running standalone POS/cash-register setups that
-      can't realistically integrate with software-based digital-receipt providers. Expanding
-      city by city based on pilot results.
-    </p>
   </div>
 </section>
 
 <section class="section pilot" id="pilot">
   <div class="wrap">
     <h2>Bring Pavatee to your store</h2>
-    <p>
-      If you run an independent retail store, cafe, or specialty shop in the Halifax/Bedford
-      area and want to offer paperless receipts without touching your POS, we'd like to hear
-      from you.
-    </p>
+    <p>Now piloting with independent stores in Halifax and Bedford, Nova Scotia.</p>
     <a class="btn btn-primary"
        href="mailto:getmypavatee@gmail.com?subject=Pilot%20interest%20-%20Pavatee">
       Email us about the pilot
@@ -313,6 +232,27 @@
     <span>Halifax &amp; Bedford, Nova Scotia</span>
   </div>
 </footer>
+
+<script>
+// If a real demo clip is added at assets/demo.mp4, show it instead of the animation.
+(function () {
+  var slot = document.getElementById('demo-video');
+  if (!slot || !window.fetch) return;
+  fetch('assets/demo.mp4', { method: 'HEAD' }).then(function (r) {
+    if (!r.ok) return;
+    var v = document.createElement('video');
+    v.src = 'assets/demo.mp4';
+    v.controls = true;
+    v.muted = true;
+    v.autoplay = true;
+    v.loop = true;
+    v.preload = 'auto';
+    v.setAttribute('playsinline', '');
+    v.className = 'demo-video';
+    slot.replaceChildren(v);
+  }).catch(function () {});
+})();
+</script>
 
 </body>
 </html>
