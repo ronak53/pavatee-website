@@ -452,7 +452,7 @@ details p { padding: 0 40px 24px 0; margin: 0; font-size: 1.02rem; }
   padding: 28px;
 }
 
-.demo-video { width: 100%; border-radius: 22px; display: block; background: #fbfbfd; }
+.demo-video { width: 100%; aspect-ratio: 16 / 9; border-radius: 22px; display: block; background: #fbfbfd; }
 
 @media (prefers-reduced-motion: reduce) {
   .hp-phone-move, .hp-pad, .hp-receipt, .hp-lock, .hp-target-glow, .hp-nfc, .hp-ripple { animation: none; }
