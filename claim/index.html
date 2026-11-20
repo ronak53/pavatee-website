@@ -17,8 +17,8 @@
     text-align: center;
     padding: 56px 20px;
   }
-  /* the shared header floats over the home page hero; here it sits on a dark bar */
-  .site-header { position: static; background: var(--night); }
+  /* the shared header is fixed on the home page; here it sits in the page flow */
+  .site-header { position: static; }
   .claim-status { color: var(--ink-soft); margin-bottom: 4px; }
   .pdf-frame {
     width: 100%;
@@ -36,9 +36,7 @@
     border-radius: 8px;
     max-width: 420px;
   }
-  @media (prefers-color-scheme: dark) {
-    .error-box { background: #3a1f1c; color: #f3b7ab; }
-  }
+  .error-box p { color: inherit; margin: 0; }
 </style>
 </head>
 <body>
