@@ -152,55 +152,70 @@ a { color: var(--brand-dark); }
 }
 .hero-points li::before { content: "\2713"; color: var(--mint); font-weight: 800; margin-right: 8px; }
 
-.hero-visual svg { width: 100%; height: auto; display: block; max-width: 520px; margin: 0 auto; font-family: inherit; }
+.hero-visual svg { width: 100%; height: auto; display: block; max-width: 520px; margin: 0 auto; font-family: inherit; overflow: visible; }
 
-/* Hero animation: phone taps the pad, the receipt appears (7s loop) */
+/* Hero animation (7s loop): the phone is brought in from the side, held just above the
+   target and tapped lightly twice, shows the receipt, then is taken away. Like a hand,
+   not a drop. */
 
-.hp-phone-move { animation: hp-move 7s cubic-bezier(0.45, 0, 0.25, 1) infinite; }
-.hp-receipt    { animation: hp-receipt 7s linear infinite; }
-.hp-lock       { animation: hp-lock 7s linear infinite; }
-.hp-target-glow { animation: hp-glow 7s ease-in-out infinite; }
-.hp-nfc         { animation: hp-nfc 7s ease-in-out infinite; }
+.hp-phone-move {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hp-move 7s linear infinite;
+}
+.hp-receipt     { animation: hp-receipt 7s linear infinite; }
+.hp-lock        { animation: hp-lock 7s linear infinite; }
+.hp-target-glow { animation: hp-glow 7s ease-out infinite; }
+.hp-nfc         { animation: hp-nfc 7s linear infinite; }
 .hp-ripple { opacity: 0; transform-box: fill-box; transform-origin: center; animation: hp-ripple 7s ease-out infinite; }
 .hp-ripple.r2 { animation-delay: 0.35s; }
 
 @keyframes hp-move {
-  0%        { transform: translate(14px, -40px); opacity: 0; }
-  8%        { transform: translate(14px, -26px); opacity: 1; }
-  26%       { transform: translate(14px, -26px); }
-  40%, 82%  { transform: translate(14px, 66px); opacity: 1; }
-  94%       { transform: translate(14px, -26px); opacity: 1; }
-  100%      { transform: translate(14px, -40px); opacity: 0; }
+  0%    { transform: translate(120px, 70px) rotate(24deg); opacity: 0; animation-timing-function: ease-out; }
+  8%    { transform: translate(104px, 62px) rotate(22deg); opacity: 1; animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1); }
+  26%   { transform: translate(18px, 40px) rotate(15deg);  animation-timing-function: ease-in-out; }
+  /* two light taps */
+  31%   { transform: translate(18px, 54px) rotate(14deg);  animation-timing-function: ease-in-out; }
+  35%   { transform: translate(18px, 40px) rotate(15deg);  animation-timing-function: ease-in-out; }
+  40%   { transform: translate(18px, 54px) rotate(14deg);  animation-timing-function: ease-in-out; }
+  46%   { transform: translate(18px, 48px) rotate(14deg); }
+  70%   { transform: translate(18px, 48px) rotate(14deg);  animation-timing-function: cubic-bezier(0.5, 0, 0.7, 0.4); }
+  86%   { transform: translate(104px, 62px) rotate(22deg); opacity: 1; animation-timing-function: ease-in; }
+  96%   { transform: translate(120px, 70px) rotate(24deg); opacity: 0; }
+  100%  { transform: translate(120px, 70px) rotate(24deg); opacity: 0; }
 }
 
 @keyframes hp-receipt {
   0%, 44%   { opacity: 0; }
-  50%, 88%  { opacity: 1; }
-  94%, 100% { opacity: 0; }
+  49%, 94%  { opacity: 1; }
+  98%, 100% { opacity: 0; }
 }
 
 @keyframes hp-lock {
   0%, 44%   { opacity: 1; }
-  50%, 88%  { opacity: 0; }
-  94%, 100% { opacity: 1; }
+  49%, 94%  { opacity: 0; }
+  98%, 100% { opacity: 1; }
 }
 
 @keyframes hp-glow {
-  0%, 36%   { opacity: 0; }
-  44%       { opacity: 0.75; }
-  62%       { opacity: 0.25; }
-  82%, 100% { opacity: 0; }
+  0%, 29%   { opacity: 0; }
+  31%       { opacity: 0.8; }
+  35%       { opacity: 0.35; }
+  40%       { opacity: 0.85; }
+  66%       { opacity: 0.2; }
+  76%, 100% { opacity: 0; }
 }
 
 @keyframes hp-nfc {
-  0%, 100% { opacity: 0.7; }
-  42%, 60% { opacity: 1; }
+  0%, 29%   { opacity: 0.7; }
+  31%, 66%  { opacity: 1; }
+  76%, 100% { opacity: 0.7; }
 }
 
 @keyframes hp-ripple {
-  0%, 40%   { opacity: 0; transform: scale(1); }
-  42%       { opacity: 0.7; transform: scale(1); }
-  66%, 100% { opacity: 0; transform: scale(2.3); }
+  0%, 29.5% { opacity: 0; transform: scale(1); }
+  31%       { opacity: 0.8; transform: scale(1); }
+  52%, 100% { opacity: 0; transform: scale(2.4); }
 }
 
 @media (max-width: 860px) {
@@ -526,8 +541,8 @@ details p { padding: 0 40px 22px 0; margin: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .ex-packet, .ex-led, .ex-phone, .ex-phone-receipt, .ex-waves, .ex-c1, .ex-c2, .ex-c3, .ex-c4,
-  .hp-phone-move, .hp-receipt, .hp-lock, .hp-target-glow, .hp-nfc, .hp-ripple { animation: none; }
-  .hp-phone-move { transform: translate(14px, 66px); }
+  .hp-phone-move, .hp-pad, .hp-receipt, .hp-lock, .hp-target-glow, .hp-nfc, .hp-ripple { animation: none; }
+  .hp-phone-move { transform: translate(14px, 68px) rotate(3deg); }
   .hp-receipt { opacity: 1; }
   .hp-lock { opacity: 0; }
   .ex-phone { opacity: 1; transform: translateY(18px); }
