@@ -371,7 +371,7 @@
 (function () {
   var slot = document.getElementById('demo-video');
   if (!slot || !window.fetch) return;
-  var src = 'assets/demo.mp4?v=2';   // bump the number when the video is replaced
+  var src = 'assets/demo.mp4?v=4';   // bump the number when the video is replaced
   fetch(src, { method: 'HEAD' }).then(function (r) {
     if (!r.ok) return;
     var v = document.createElement('video');
