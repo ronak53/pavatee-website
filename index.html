@@ -159,7 +159,7 @@
   </div>
 </section>
 
-<!-- Explainer: animated loop by default; swaps to a real video if assets/demo.mp4 exists -->
+<!-- Demo video -->
 <section class="section watch" id="watch">
   <div class="wrap wrap--wide">
     <div class="section-head">
@@ -167,50 +167,9 @@
       <h2>The receipt is held, then handed over.</h2>
     </div>
     <div class="explainer-wrap" id="demo-video">
-      <svg class="explainer" viewBox="0 0 640 330" role="img" aria-label="A sale rings up, Pavatee holds the receipt, the customer taps their phone, and the receipt opens on the phone with nothing printed.">
-        <g>
-          <rect x="24" y="118" width="120" height="98" rx="12" class="ex-body"/>
-          <rect x="40" y="134" width="88" height="42" rx="6" class="ex-screen"/>
-          <text x="84" y="163" text-anchor="middle" class="ex-money">$12.40</text>
-          <text x="84" y="240" text-anchor="middle" class="ex-label">Your POS</text>
-        </g>
-        <path class="ex-link" d="M148 167 H256"/>
-        <path class="ex-link" d="M384 167 H492"/>
-        <g>
-          <rect x="260" y="130" width="124" height="86" rx="14" class="ex-device"/>
-          <text x="322" y="180" text-anchor="middle" class="ex-brand">Pavatee</text>
-          <circle cx="366" cy="148" r="6" class="ex-led"/>
-        </g>
-        <text x="322" y="240" text-anchor="middle" class="ex-label">holds the receipt</text>
-        <g>
-          <rect x="496" y="126" width="120" height="90" rx="12" class="ex-body"/>
-          <rect x="516" y="144" width="80" height="8" rx="4" class="ex-slot"/>
-          <text x="556" y="240" text-anchor="middle" class="ex-label">Your printer</text>
-        </g>
-        <rect class="ex-packet" x="150" y="152" width="20" height="26" rx="3"/>
-        <g transform="translate(292 4)">
-          <g class="ex-phone">
-            <rect x="0" y="0" width="56" height="104" rx="11" class="ex-phone-body"/>
-            <rect x="5" y="10" width="46" height="82" rx="5" class="ex-phone-screen"/>
-            <g class="ex-phone-receipt">
-              <rect x="12" y="20" width="32" height="4" rx="2" class="ex-line"/>
-              <rect x="12" y="30" width="24" height="4" rx="2" class="ex-line"/>
-              <rect x="12" y="40" width="28" height="4" rx="2" class="ex-line"/>
-              <rect x="12" y="50" width="20" height="4" rx="2" class="ex-line"/>
-              <circle cx="28" cy="72" r="10" class="ex-check-bg"/>
-              <path d="M23 72 L27 76 L34 67" class="ex-check"/>
-            </g>
-          </g>
-        </g>
-        <g class="ex-waves">
-          <path d="M 300 122 A 16 16 0 0 1 356 122"/>
-          <path d="M 290 120 A 28 28 0 0 1 366 120"/>
-        </g>
-        <text x="320" y="296" text-anchor="middle" class="ex-caption ex-c1">1. The sale rings up as usual</text>
-        <text x="320" y="296" text-anchor="middle" class="ex-caption ex-c2">2. Pavatee holds the receipt</text>
-        <text x="320" y="296" text-anchor="middle" class="ex-caption ex-c3">3. The customer taps their phone</text>
-        <text x="320" y="296" text-anchor="middle" class="ex-caption ex-c4">4. Receipt on their phone. Nothing printed.</text>
-      </svg>
+      <video class="demo-video" id="demo-player" src="assets/demo-15s.mp4" poster="assets/demo-poster.jpg"
+             autoplay muted loop playsinline controls preload="auto"
+             aria-label="A sale rings up, Pavatee holds the receipt, the customer taps their phone, and the receipt opens on the phone with nothing printed."></video>
     </div>
   </div>
 </section>
@@ -362,29 +321,18 @@
       <img class="brand-mark" src="assets/logo.svg" alt="" width="20" height="20">
       Pavatee
     </span>
-    <span>Halifax &amp; Bedford, Nova Scotia</span>
+    <span>&copy; 2026 Pavatee &middot; Halifax &amp; Bedford, Nova Scotia</span>
   </div>
 </footer>
 
 <script>
-// If a real demo clip exists at assets/demo.mp4, show it instead of the animation.
+// Respect "reduce motion": do not autoplay the demo video.
 (function () {
-  var slot = document.getElementById('demo-video');
-  if (!slot || !window.fetch) return;
-  var src = 'assets/demo.mp4?v=4';   // bump the number when the video is replaced
-  fetch(src, { method: 'HEAD' }).then(function (r) {
-    if (!r.ok) return;
-    var v = document.createElement('video');
-    v.src = src;
-    v.controls = true;
-    v.muted = true;
-    v.autoplay = true;
-    v.loop = true;
-    v.preload = 'auto';
-    v.setAttribute('playsinline', '');
-    v.className = 'demo-video';
-    slot.replaceChildren(v);
-  }).catch(function () {});
+  var v = document.getElementById('demo-player');
+  if (v && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    v.removeAttribute('autoplay');
+    v.pause();
+  }
 })();
 
 // Contact form -> Web3Forms (emails the submission to the Pavatee inbox).

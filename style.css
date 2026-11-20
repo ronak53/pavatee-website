@@ -444,7 +444,7 @@ details p { padding: 0 40px 24px 0; margin: 0; font-size: 1.02rem; }
 .site-footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 .footer-brand { display: flex; align-items: center; gap: 8px; color: var(--ink); font-weight: 600; }
 
-/* Explainer / demo video */
+/* Demo video */
 
 .explainer-wrap {
   background: var(--paper-alt);
@@ -452,93 +452,16 @@ details p { padding: 0 40px 24px 0; margin: 0; font-size: 1.02rem; }
   padding: 28px;
 }
 
-.explainer { width: 100%; height: auto; display: block; }
-
-.demo-video { width: 100%; border-radius: 22px; display: block; background: #000; }
-
-.ex-body { fill: #fff; stroke: var(--ink); stroke-width: 2; }
-.ex-screen { fill: var(--ink); }
-.ex-money { fill: #fff; font-size: 22px; font-weight: 700; }
-.ex-label { fill: var(--ink-soft); font-size: 19px; }
-.ex-link { stroke: #86868b; stroke-width: 2; stroke-dasharray: 6 6; opacity: 0.7; fill: none; }
-.ex-device { fill: var(--brand); }
-.ex-brand { fill: #fff; font-size: 20px; font-weight: 700; }
-.ex-slot { fill: var(--ink); opacity: 0.35; }
-.ex-packet { fill: var(--accent); }
-.ex-phone-body { fill: var(--ink); stroke: var(--ink); stroke-width: 2.5; }
-.ex-phone-screen { fill: #fff; }
-.ex-line { fill: var(--ink); opacity: 0.7; }
-.ex-check-bg { fill: var(--accent); }
-.ex-check { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-.ex-waves path { fill: none; stroke: var(--brand); stroke-width: 4; stroke-linecap: round; }
-.ex-caption { fill: var(--ink); font-size: 22px; font-weight: 600; opacity: 0; }
-
-/* One 16s loop: 4 scenes of 4s each */
-.ex-packet  { opacity: 0; animation: ex-packet 16s linear infinite; }
-.ex-led     { fill: #c7c7cc; animation: ex-led 16s linear infinite; }
-.ex-phone   { opacity: 0; animation: ex-phone 16s ease-in-out infinite; }
-.ex-phone-receipt { opacity: 0; animation: ex-receipt 16s linear infinite; }
-.ex-waves   { opacity: 0; animation: ex-waves 16s linear infinite; }
-.ex-c1 { animation: ex-cap 16s linear infinite; }
-.ex-c2 { animation: ex-cap 16s linear infinite 4s; }
-.ex-c3 { animation: ex-cap 16s linear infinite 8s; }
-.ex-c4 { animation: ex-cap 16s linear infinite 12s; }
-
-@keyframes ex-packet {
-  0%        { opacity: 0; transform: translateX(0); }
-  3%        { opacity: 1; transform: translateX(0); }
-  19%       { opacity: 1; transform: translateX(104px); }
-  22%, 100% { opacity: 0; transform: translateX(104px); }
-}
-
-@keyframes ex-led {
-  0%, 22%   { fill: #c7c7cc; }
-  26%, 70%  { fill: #ffc83d; }
-  76%, 96%  { fill: #30d158; }
-  100%      { fill: #c7c7cc; }
-}
-
-@keyframes ex-phone {
-  0%, 46%   { opacity: 0; transform: translateY(-24px); }
-  52%       { opacity: 1; transform: translateY(0); }
-  60%, 94%  { opacity: 1; transform: translateY(18px); }
-  98%, 100% { opacity: 0; transform: translateY(18px); }
-}
-
-@keyframes ex-waves {
-  0%, 56%   { opacity: 0; }
-  60%       { opacity: 1; }
-  66%       { opacity: 0.3; }
-  70%       { opacity: 1; }
-  76%, 100% { opacity: 0; }
-}
-
-@keyframes ex-receipt {
-  0%, 74%   { opacity: 0; }
-  78%, 94%  { opacity: 1; }
-  98%, 100% { opacity: 0; }
-}
-
-@keyframes ex-cap {
-  0%        { opacity: 0; }
-  2%, 21%   { opacity: 1; }
-  24%, 100% { opacity: 0; }
-}
+.demo-video { width: 100%; border-radius: 22px; display: block; background: #fbfbfd; }
 
 @media (prefers-reduced-motion: reduce) {
-  .ex-packet, .ex-led, .ex-phone, .ex-phone-receipt, .ex-waves, .ex-c1, .ex-c2, .ex-c3, .ex-c4,
   .hp-phone-move, .hp-pad, .hp-receipt, .hp-lock, .hp-target-glow, .hp-nfc, .hp-ripple { animation: none; }
   .hp-phone-move { transform: translate(18px, 48px) rotate(14deg); }
   .hp-receipt { opacity: 1; }
   .hp-lock { opacity: 0; }
-  .ex-phone { opacity: 1; transform: translateY(18px); }
-  .ex-phone-receipt { opacity: 1; }
-  .ex-led { fill: #30d158; }
-  .ex-c4 { opacity: 1; }
   html { scroll-behavior: auto; }
 }
 
 @media (max-width: 640px) {
-  .ex-caption { font-size: 26px; }
   .explainer-wrap { padding: 12px; border-radius: 22px; }
 }
