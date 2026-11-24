@@ -246,6 +246,49 @@
   </div>
 </section>
 
+<section class="section calc" id="savings">
+  <div class="wrap wrap--wide calc-grid">
+    <div class="calc-inputs">
+      <p class="kicker">Estimate your store</p>
+      <h2>How much paper would you stop printing?</h2>
+      <p class="lead">Slide to match your store. This is a rough estimate, not a quote.</p>
+
+      <div class="calc-field">
+        <div class="calc-label"><label for="calc-sales">Sales per day</label><output id="calc-sales-out" for="calc-sales">300</output></div>
+        <input type="range" id="calc-sales" min="20" max="2000" step="10" value="300">
+      </div>
+
+      <div class="calc-field">
+        <div class="calc-label"><label for="calc-digital">Customers who choose digital</label><output id="calc-digital-out" for="calc-digital">30%</output></div>
+        <input type="range" id="calc-digital" min="5" max="90" step="1" value="30">
+      </div>
+
+
+
+    </div>
+
+    <div class="calc-result" aria-live="polite">
+      <p class="calc-result-title">Your estimate, <strong>per year</strong></p>
+      <div class="calc-tiles">
+        <div class="calc-tile"><p class="calc-value" id="out-receipts">0</p><p class="calc-caption">receipts not printed per year</p></div>
+        <div class="calc-tile"><p class="calc-value" id="out-rolls">0</p><p class="calc-caption">paper rolls saved per year</p></div>
+        <div class="calc-tile"><p class="calc-value" id="out-cost">$0</p><p class="calc-caption">paper cost avoided per year</p></div>
+        <div class="calc-tile"><p class="calc-value" id="out-km">0 km</p><p class="calc-caption">of receipt paper per year</p></div>
+        <div class="calc-tile calc-tile--wide">
+          <p class="calc-value" id="out-trees">0 trees</p>
+          <p class="calc-caption">worth of paper you would not need to buy each year</p>
+          <p class="calc-range" id="out-range"></p>
+          <p class="calc-story" id="out-story"></p>
+        </div>
+      </div>
+      <details class="calc-assume">
+        <summary>Illustrative, not a quote: one store, $2.20 a roll, 15-inch receipts. <u>See assumptions</u></summary>
+        <p>Illustrative only. Assumes one store open 360 days a year, a standard 3&#8539;&Prime; &times; 200 ft thermal roll at $2.20 (a Canadian online list price for a case of 50 BPA-free rolls works out to $2.18 a roll; prices change), and receipts about 15 inches long, measured on a real receipt from an independent store we spoke with. Bigger baskets print longer receipts and shorter receipts mean fewer rolls, so your own numbers will differ. Trees are a rough figure: about 0.27 kg of paper per roll and 17 trees per tonne of paper, and published estimates for that vary widely (roughly 12 to 24). It counts paper only, not the price of Pavatee, which is still being set with pilot stores.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <section class="section faq" id="faq">
   <div class="wrap">
     <div class="section-head">
@@ -333,6 +376,63 @@
     v.removeAttribute('autoplay');
     v.pause();
   }
+})();
+
+// Savings estimator: sales per day and the share who choose digital -> paper and trees.
+(function () {
+  function $(id) { return document.getElementById(id); }
+  var sales = $('calc-sales');
+  if (!sales) return;
+  var digital = $('calc-digital');
+  var DAYS = 360;                                         // open days a year
+  var ROLL_INCHES = 200 * 12;                             // standard 3 1/8" x 200 ft thermal roll
+  var RECEIPT_INCHES = 15;                                // assumed average receipt length
+  var PRICE = 2.2;                                        // CAD per roll
+  var KG_PER_ROLL = 0.27;                                 // rough paper weight of one roll
+  var TREES_LOW = 12, TREES_MID = 17, TREES_HIGH = 24;    // published trees-per-tonne estimates
+  var nf = new Intl.NumberFormat('en-CA', { maximumFractionDigits: 0 });
+  var money = new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 });
+  function fill(el) {
+    var p = (el.value - el.min) / (el.max - el.min) * 100;
+    el.style.setProperty('--p', p + '%');
+  }
+  function treeNum(t) { return t < 0.1 ? '<0.1' : (t < 10 ? String(parseFloat(t.toFixed(1))) : nf.format(t)); }
+  function treeWords(t) {
+    if (t < 0.125) return 'Under \u00bc of a tree';
+    if (t < 0.375) return 'About \u00bc of a tree';
+    if (t < 0.625) return 'About \u00bd a tree';
+    if (t < 0.875) return 'About \u00be of a tree';
+    if (t < 1.25) return 'About 1 tree';
+    return 'About ' + treeNum(t) + ' trees';
+  }
+  function update() {
+    var s = Number(sales.value) || 0;
+    var d = Number(digital.value) || 0;
+    var receipts = s * DAYS * d / 100;
+    var rolls = receipts / (ROLL_INCHES / RECEIPT_INCHES);
+    var km = receipts * RECEIPT_INCHES * 0.0254 / 1000;
+    var tonnes = rolls * KG_PER_ROLL / 1000;
+    $('calc-sales-out').textContent = nf.format(s);
+    $('calc-digital-out').textContent = d + '%';
+    $('out-receipts').textContent = nf.format(receipts);
+    $('out-rolls').textContent = nf.format(rolls);
+    $('out-cost').textContent = money.format(rolls * PRICE).replace('CA$', '$');
+    $('out-km').textContent = km < 1 ? nf.format(km * 1000) + ' m'
+      : (km < 10 ? km.toFixed(1) : nf.format(km)) + ' km';
+    $('out-trees').textContent = treeWords(tonnes * TREES_MID);
+    $('out-range').textContent = tonnes * TREES_HIGH < 0.1
+      ? 'Published estimates put this at less than 0.1 trees (12 to 24 trees per tonne of paper).'
+      : 'Published estimates put this between ' + treeNum(tonnes * TREES_LOW) +
+        ' and ' + treeNum(tonnes * TREES_HIGH) + ' trees (12 to 24 trees per tonne of paper).';
+    $('out-story').textContent = nf.format(receipts) +
+      ' receipts that never get crumpled in a pocket, lost in a bag or dropped in the bin, and a little less paper for your team to handle every day.';
+    fill(sales); fill(digital);
+  }
+  ['input', 'change'].forEach(function (ev) {
+    sales.addEventListener(ev, update);
+    digital.addEventListener(ev, update);
+  });
+  update();
 })();
 
 // Contact form -> Web3Forms (emails the submission to the Pavatee inbox).
