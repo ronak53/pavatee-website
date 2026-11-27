@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your receipt — Pavatee</title>
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+<link rel="stylesheet" href="../style.css">
+<style>
+  .tap-main {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 56px 20px;
+  }
+  /* the shared header is fixed on the home page; here it sits in the page flow */
+  .site-header { position: static; }
+  .tap-status { color: var(--ink-soft); }
+  .tap-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 22px;
+    max-width: 420px;
+  }
+  .tap-box h1 { font-size: 1.4rem; margin: 0 0 8px; }
+  .tap-box p { margin: 0; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="https://pavatee.com">
+      <img class="brand-mark" src="../assets/logo.svg" alt="" width="32" height="32">
+      <span class="logo">Pavatee</span>
+    </a>
+  </div>
+</header>
+
+<main class="tap-main wrap">
+  <p id="tap-opening" class="tap-status">Opening your receipt…</p>
+  <div id="tap-message" class="tap-box" style="display:none">
+    <h1 id="tap-title"></h1>
+    <p id="tap-text"></p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span class="footer-brand">
+      <img class="brand-mark" src="../assets/logo.svg" alt="" width="20" height="20">
+      Pavatee
+    </span>
+    <span>&copy; 2026 Pavatee</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // The tag opens pavatee.com/t?e=..&c=.. : hand the signed link straight to
+  // the `tap` function, which checks it and sends the phone on to the receipt
+  // (or back here with ?s=used|none|bad). No third-party scripts.
+  var TAP_URL = "https://zsrkkgdoyodsmbqywoev.supabase.co/functions/v1/tap";
+  var MESSAGES = {
+    used: ["Tap again", "This link has already been used. Tap your phone on the tag again for a fresh one."],
+    none: ["No receipt is waiting", "Ask the cashier, then tap again."],
+    bad:  ["This link isn't valid", "Tap your phone on the Pavatee tag at the counter."]
+  };
+
+  var params = new URLSearchParams(window.location.search);
+  var e = params.get("e");
+  var c = params.get("c");
+  var s = params.get("s");
+
+  if (e && c) {
+    window.location.replace(TAP_URL + "?e=" + encodeURIComponent(e) + "&c=" + encodeURIComponent(c));
+    return;
+  }
+
+  var m = MESSAGES[s] || MESSAGES.bad;
+  document.getElementById("tap-title").textContent = m[0];
+  document.getElementById("tap-text").textContent = m[1];
+  document.getElementById("tap-opening").style.display = "none";
+  document.getElementById("tap-message").style.display = "";
+})();
+</script>
+
+</body>
+</html>
