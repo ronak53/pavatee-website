@@ -54,7 +54,7 @@
 
 <main class="claim-main wrap">
   <div id="state-loading">
-    <p class="claim-status">Getting your receipt…</p>
+    <p class="claim-status" id="loading-text">Getting your receipt…</p>
   </div>
 
   <div id="state-error" style="display:none">
@@ -89,6 +89,7 @@
   // minutes.
   var RECEIPT_URL = "https://zsrkkgdoyodsmbqywoev.supabase.co/functions/v1/receipt";
   var TICKET_RE = /^[A-Za-z0-9_-]{43}$/;
+  var PENDING_WAIT_MS = 45000;
 
   var ticket = new URLSearchParams(window.location.search).get("ticket");
 
@@ -105,8 +106,12 @@
   function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
   async function getLink() {
-    // Retries only "server busy" and network errors; "not found" is final.
-    for (var attempt = 0; attempt < 4; attempt++) {
+    // 202 = tapped while the till is still sending the receipt: wait and ask
+    // again (up to PENDING_WAIT_MS). Network errors and "server busy" are
+    // retried a few times; "not found" is final.
+    var started = Date.now();
+    var failures = 0;
+    while (true) {
       try {
         var res = await fetch(RECEIPT_URL, {
           method: "POST",
@@ -116,16 +121,23 @@
           referrerPolicy: "no-referrer",
         });
         if (res.status === 404) return null;
+        if (res.status === 202) {
+          if (Date.now() - started > PENDING_WAIT_MS) throw new Error("still pending");
+          el("loading-text").textContent = "Getting your receipt… it's on its way from the till.";
+          await wait(1000);
+          continue;
+        }
         if (res.ok) {
           var data = await res.json();
           if (data && data.url) return data.url;
         }
       } catch (e) {
+        if (e && e.message === "still pending") throw e;
         // network hiccup - retry below
       }
+      if (++failures >= 4) throw new Error("unavailable");
       await wait(1500);
     }
-    throw new Error("unavailable");
   }
 
   async function show() {
@@ -137,7 +149,7 @@
     try {
       url = await getLink();
     } catch (e) {
-      showError("Your receipt couldn't be loaded right now. Please try again in a moment.");
+      showError("Your receipt couldn't be loaded right now. Please try again in a moment, or ask the cashier to print it.");
       return;
     }
     if (!url) {
