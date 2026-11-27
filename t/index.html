@@ -6,7 +6,7 @@
 <title>Your receipt — Pavatee</title>
 <meta name="robots" content="noindex">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://zsrkkgdoyodsmbqywoev.supabase.co; base-uri 'none'; form-action 'none'">
 <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
 <link rel="stylesheet" href="../style.css">
 <style>
@@ -64,9 +64,11 @@
 
 <script>
 (function () {
-  // The tag opens pavatee.com/t?e=..&c=.. : hand the signed link straight to
-  // the `tap` function, which checks it and sends the phone on to the receipt
-  // (or back here with ?s=used|none|bad). No third-party scripts.
+  // The tag opens pavatee.com/t?e=..&c=.. . The signed link is taken out of
+  // the address bar at once and sent to the `tap` function in the background,
+  // so the browser never shows it to preview or read-aloud services (in the
+  // first real test, Google-Read-Aloud fetched it at the same moment as the
+  // phone). The function answers with where to go next. No third-party scripts.
   var TAP_URL = "https://zsrkkgdoyodsmbqywoev.supabase.co/functions/v1/tap";
   var MESSAGES = {
     used: ["Tap again", "This link has already been used. Tap your phone on the tag again for a fresh one."],
@@ -79,16 +81,39 @@
   var c = params.get("c");
   var s = params.get("s");
 
+  function showMessage(key) {
+    var m = MESSAGES[key] || MESSAGES.bad;
+    document.getElementById("tap-title").textContent = m[0];
+    document.getElementById("tap-text").textContent = m[1];
+    document.getElementById("tap-opening").style.display = "none";
+    document.getElementById("tap-message").style.display = "";
+  }
+
   if (e && c) {
-    window.location.replace(TAP_URL + "?e=" + encodeURIComponent(e) + "&c=" + encodeURIComponent(c));
+    try { history.replaceState(null, "", "/t/"); } catch (err) { /* old browser: keep going */ }
+    fetch(TAP_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ e: e, c: c }),
+      cache: "no-store",
+      referrerPolicy: "no-referrer",
+    }).then(function (res) {
+      return res.ok ? res.json() : null;
+    }).then(function (data) {
+      var next = data && data.location;
+      if (typeof next === "string" && next.indexOf("https://pavatee.com/") === 0) {
+        window.location.replace(next);
+      } else {
+        showMessage("none");
+      }
+    }).catch(function () {
+      MESSAGES.offline = ["Couldn't reach Pavatee", "Check your connection, then tap again."];
+      showMessage("offline");
+    });
     return;
   }
 
-  var m = MESSAGES[s] || MESSAGES.bad;
-  document.getElementById("tap-title").textContent = m[0];
-  document.getElementById("tap-text").textContent = m[1];
-  document.getElementById("tap-opening").style.display = "none";
-  document.getElementById("tap-message").style.display = "";
+  showMessage(s);
 })();
 </script>
 
